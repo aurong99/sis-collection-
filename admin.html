@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Step-In-Style (SIS) Collection — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:    #c9a84c;
+      --gold-lt: #e0c06a;
+      --bg:      #0d0d0d;
+      --bg2:     #141414;
+      --bg3:     #1c1c1c;
+      --border:  rgba(255,255,255,.08);
+      --text:    #f0ede6;
+      --muted:   #777;
+      --red:     #ff4c4c;
+      --green:   #4caf72;
+      --blue:    #5ab4ff;
+    }
+
+    body { font-family:'Jost',sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.6; }
+
+    /* ── LOGIN SCREEN ── */
+    #login-screen {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+    }
+    .login-box {
+      background:var(--bg2); border:1px solid var(--border); border-radius:12px;
+      padding:48px 40px; width:min(400px,90vw); text-align:center;
+    }
+    .login-logo { letter-spacing:.3em; font-size:.75rem; color:var(--gold); margin-bottom:12px; }
+    .login-box h2 { font-size:1.6rem; font-weight:400; margin-bottom:24px; }
+
+    /* ── LAYOUT ── */
+    #app { display:none; min-height:100vh; }
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; width:220px;
+      background:var(--bg2); border-right:1px solid var(--border);
+      display:flex; flex-direction:column; z-index:100;
+    }
+    .sidebar-logo {
+      padding:24px 20px; letter-spacing:.25em; font-size:.7rem;
+      color:var(--gold); border-bottom:1px solid var(--border);
+    }
+    .sidebar-nav { flex:1; padding:16px 0; overflow-y:auto; }
+    .nav-item {
+      display:flex; align-items:center; gap:10px; padding:11px 20px;
+      cursor:pointer; color:var(--muted); font-size:.87rem; transition:all .2s;
+      border-left:2px solid transparent; letter-spacing:.03em;
+    }
+    .nav-item:hover { color:var(--text); background:rgba(255,255,255,.03); }
+    .nav-item.active { color:var(--gold); border-left-color:var(--gold); background:rgba(201,168,76,.05); }
+    .nav-item .icon { font-size:1rem; width:18px; text-align:center; }
+    .sidebar-footer { padding:16px 20px; border-top:1px solid var(--border); }
+    .user-badge { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .user-avatar {
+      width:34px; height:34px; border-radius:50%; background:var(--gold);
+      color:#000; display:flex; align-items:center; justify-content:center; font-weight:700;
+    }
+    .user-info .name { font-size:.85rem; font-weight:500; }
+    .user-info .role { font-size:.72rem; color:var(--muted); }
+
+    .main { margin-left:220px; padding:32px; min-height:100vh; }
+    .page { display:none; }
+    .page.active { display:block; }
+    .page-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+    .page-header h1 { font-size:1.5rem; font-weight:400; }
+
+    /* ── STATS ── */
+    .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:32px; }
+    .stat-card {
+      background:var(--bg2); border:1px solid var(--border); border-radius:10px;
+      padding:20px; position:relative; overflow:hidden;
+    }
+    .stat-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:var(--gold);
+    }
+    .stat-label { font-size:.75rem; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; }
+    .stat-value { font-size:1.8rem; font-weight:500; margin-top:4px; }
+    .stat-icon { position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:1.8rem; opacity:.15; }
+
+    /* ── TABLE ── */
+    .table-wrap { background:var(--bg2); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+    table { width:100%; border-collapse:collapse; }
+    thead th {
+      padding:12px 16px; text-align:left; font-size:.72rem; letter-spacing:.1em;
+      color:var(--muted); text-transform:uppercase; background:var(--bg3); font-weight:500;
+    }
+    tbody tr { border-top:1px solid var(--border); transition:background .15s; }
+    tbody tr:hover { background:rgba(255,255,255,.02); }
+    tbody td { padding:12px 16px; font-size:.88rem; }
+
+    /* ── BADGES ── */
+    .badge {
+      display:inline-block; padding:2px 8px; border-radius:100px;
+      font-size:.7rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+    }
+    .badge-new     { background:rgba(201,168,76,.15); color:var(--gold); }
+    .badge-sale    { background:rgba(255,76,76,.15);  color:var(--red); }
+    .badge-pending    { background:rgba(255,200,0,.15);  color:#ffd700; }
+    .badge-confirmed  { background:rgba(76,175,114,.15); color:var(--green); }
+    .badge-processing { background:rgba(90,180,255,.15); color:var(--blue); }
+    .badge-shipped    { background:rgba(150,100,255,.15); color:#b394ff; }
+    .badge-delivered  { background:rgba(0,220,120,.15);  color:#00dc78; }
+    .badge-cancelled  { background:rgba(255,76,76,.15);  color:var(--red); }
+    .badge-admin   { background:rgba(201,168,76,.15); color:var(--gold); }
+    .badge-customer{ background:rgba(255,255,255,.08); color:var(--muted); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:8px 18px; border-radius:6px; font-family:inherit;
+      font-size:.83rem; font-weight:500; cursor:pointer; border:none;
+      transition:all .2s; letter-spacing:.04em; text-transform:uppercase;
+    }
+    .btn-gold { background:var(--gold); color:#000; }
+    .btn-gold:hover { background:var(--gold-lt); }
+    .btn-outline { background:none; border:1px solid var(--border); color:var(--text); }
+    .btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+    .btn-danger { background:rgba(255,76,76,.12); border:1px solid rgba(255,76,76,.2); color:var(--red); }
+    .btn-danger:hover { background:rgba(255,76,76,.2); }
+    .btn-sm { padding:5px 12px; font-size:.75rem; }
+
+    /* ── FORM ELEMENTS ── */
+    .input, select, textarea {
+      background:var(--bg3); border:1px solid var(--border); color:var(--text);
+      border-radius:6px; padding:9px 12px; font-family:inherit; font-size:.87rem;
+      width:100%; transition:border-color .2s; outline:none;
+    }
+    .input:focus, select:focus, textarea:focus { border-color:var(--gold); }
+    select option { background:var(--bg3); }
+    label { display:block; font-size:.75rem; letter-spacing:.08em; color:var(--muted);
+            text-transform:uppercase; margin-bottom:5px; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .form-group { margin-bottom:14px; }
+    .col-span-2 { grid-column:span 2; }
+
+    /* ── MODAL ── */
+    .overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,.7); backdrop-filter:blur(4px);
+      z-index:9000; display:none; align-items:center; justify-content:center;
+    }
+    .overlay.open { display:flex; }
+    .dialog {
+      background:var(--bg2); border:1px solid var(--border); border-radius:12px;
+      padding:32px; width:min(520px,90vw); max-height:90vh; overflow-y:auto;
+      position:relative;
+    }
+    .dialog h3 { font-size:1.2rem; font-weight:400; margin-bottom:20px; }
+    .dialog-close {
+      position:absolute; top:16px; right:16px; background:none; border:none;
+      color:var(--muted); font-size:1rem; cursor:pointer;
+    }
+    .dialog-close:hover { color:var(--gold); }
+    .dialog-footer { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
+
+    /* ── SEARCH / FILTER BAR ── */
+    .toolbar { display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+    .toolbar .input { max-width:260px; }
+
+    /* ── TOAST ── */
+    #admin-toast {
+      position:fixed; bottom:24px; right:24px; background:var(--bg3);
+      border:1px solid var(--border); color:var(--text); padding:12px 20px;
+      border-radius:8px; font-size:.87rem; z-index:99999;
+      transform:translateY(10px); opacity:0; transition:all .3s;
+      pointer-events:none;
+    }
+    #admin-toast.show { transform:translateY(0); opacity:1; }
+    #admin-toast.error { border-color:var(--red); color:var(--red); }
+    #admin-toast.success { border-color:var(--green); color:var(--green); }
+
+    /* ── LOADING ── */
+    .spinner {
+      width:24px; height:24px; border:2px solid var(--border);
+      border-top-color:var(--gold); border-radius:50%;
+      animation:spin .6s linear infinite; margin:40px auto; display:block;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .empty-state { text-align:center; padding:48px; color:var(--muted); }
+
+    /* ── MESSAGE DETAIL ── */
+    .msg-body { background:var(--bg3); border-radius:8px; padding:14px; font-size:.9rem; line-height:1.7; margin-top:8px; }
+
+    /* ── RECENT ORDERS TABLE ── */
+    .section-title { font-size:1rem; font-weight:500; margin-bottom:14px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ── -->
+<div id="login-screen">
+  <div class="login-box">
+    <p class="login-logo">Step-In-Style (SIS)</p>
+    <h2>Admin Panel</h2>
+    <form id="admin-login-form">
+      <div class="form-group">
+        <label>Email</label>
+        <input class="input" type="email" id="adm-email" required placeholder="admin@stepinstyle.com"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input class="input" type="password" id="adm-pass" required placeholder="••••••••"/>
+      </div>
+      <div id="adm-error" style="color:var(--red);font-size:.82rem;margin-bottom:10px;min-height:18px;"></div>
+      <button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;" id="adm-login-btn">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ── MAIN APP ── -->
+<div id="app">
+  <aside class="sidebar">
+    <div class="sidebar-logo">Step-In-Style (SIS)</div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-page="dashboard"><span class="icon">◉</span> Dashboard</div>
+      <div class="nav-item" data-page="products"><span class="icon">🛍</span> Products</div>
+      <div class="nav-item" data-page="orders"><span class="icon">📦</span> Orders</div>
+      <div class="nav-item" data-page="users"><span class="icon">👤</span> Customers</div>
+      <div class="nav-item" data-page="newsletter"><span class="icon">✉</span> Newsletter</div>
+      <div class="nav-item" data-page="contacts"><span class="icon">💬</span> Messages</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-badge">
+        <div class="user-avatar" id="admin-avatar">A</div>
+        <div class="user-info">
+          <div class="name" id="admin-name">Admin</div>
+          <div class="role">Administrator</div>
+        </div>
+      </div>
+      <button class="btn btn-outline" style="width:100%;justify-content:center;" id="admin-logout">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header"><h1>Dashboard</h1></div>
+      <div class="stats-grid" id="stats-grid"><span class="spinner"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px;">
+        <div>
+          <p class="section-title">Recent Orders</p>
+          <div class="table-wrap" id="dash-recent-orders"><span class="spinner"></span></div>
+        </div>
+        <div>
+          <p class="section-title">Revenue by Category</p>
+          <div class="table-wrap" id="dash-categories"><span class="spinner"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="page" id="page-products">
+      <div class="page-header">
+        <h1>Products</h1>
+        <button class="btn btn-gold" id="add-product-btn">+ Add Product</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Name</th><th>Category</th><th>Price</th><th>Badge</th><th>Stock</th><th>Actions</th></tr></thead>
+          <tbody id="products-tbody"><tr><td colspan="7"><span class="spinner"></span></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div class="page" id="page-orders">
+      <div class="page-header"><h1>Orders</h1></div>
+      <div class="toolbar">
+        <select id="order-status-filter" style="max-width:180px;">
+          <option value="">All Statuses</option>
+          <option>pending</option><option>confirmed</option><option>processing</option>
+          <option>shipped</option><option>delivered</option><option>cancelled</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Customer</th><th>Email</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody id="orders-tbody"><tr><td colspan="8"><span class="spinner"></span></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="page" id="page-users">
+      <div class="page-header"><h1>Customers</h1></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Joined</th><th>Actions</th></tr></thead>
+          <tbody id="users-tbody"><tr><td colspan="7"><span class="spinner"></span></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- NEWSLETTER -->
+    <div class="page" id="page-newsletter">
+      <div class="page-header"><h1>Newsletter</h1></div>
+      <div class="toolbar">
+        <select id="newsletter-filter" style="max-width:160px;">
+          <option value="">All</option>
+          <option value="true">Active</option>
+          <option value="false">Unsubscribed</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Email</th><th>Status</th><th>Subscribed</th></tr></thead>
+          <tbody id="newsletter-tbody"><tr><td colspan="4"><span class="spinner"></span></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CONTACTS -->
+    <div class="page" id="page-contacts">
+      <div class="page-header"><h1>Messages</h1></div>
+      <div class="toolbar">
+        <select id="contact-status-filter" style="max-width:180px;">
+          <option value="">All</option>
+          <option>unread</option><option>read</option><option>replied</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>From</th><th>Email</th><th>Preview</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody id="contacts-tbody"><tr><td colspan="7"><span class="spinner"></span></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── PRODUCT DIALOG ── -->
+<div class="overlay" id="product-overlay">
+  <div class="dialog">
+    <button class="dialog-close" id="product-dialog-close">✕</button>
+    <h3 id="product-dialog-title">Add Product</h3>
+    <form id="product-form">
+      <input type="hidden" id="p-id"/>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Name</label>
+          <input class="input" id="p-name" required placeholder="Product name"/>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="p-category">
+            <option>Men's Formal</option><option>Women's Couture</option>
+            <option>Casual Luxury</option><option>Accessories</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Price (GH₵)</label>
+          <input class="input" type="number" id="p-price" required min="0" step="0.01"/>
+        </div>
+        <div class="form-group">
+          <label>Old Price (GH₵)</label>
+          <input class="input" type="number" id="p-old-price" min="0" step="0.01" placeholder="Leave blank if none"/>
+        </div>
+        <div class="form-group">
+          <label>Badge</label>
+          <select id="p-badge">
+            <option value="">None</option><option>New</option><option>Sale</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Image URL</label>
+          <input class="input" type="url" id="p-image-url" placeholder="https://example.com/product.jpg"/>
+        </div>
+        <div class="form-group">
+          <label>Rating (1–5)</label>
+          <select id="p-rating">
+            <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Emoji</label>
+          <input class="input" id="p-emoji" placeholder="👕" maxlength="4"/>
+        </div>
+        <div class="form-group">
+          <label>In Stock</label>
+          <select id="p-stock"><option value="1">Yes</option><option value="0">No</option></select>
+        </div>
+        <div class="form-group col-span-2">
+          <label>Description</label>
+          <textarea id="p-desc" rows="3" placeholder="Product description…"></textarea>
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button type="button" class="btn btn-outline" id="product-cancel">Cancel</button>
+        <button type="submit" class="btn btn-gold" id="product-save-btn">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── ORDER STATUS DIALOG ── -->
+<div class="overlay" id="order-overlay">
+  <div class="dialog" style="max-width:400px;">
+    <button class="dialog-close" id="order-dialog-close">✕</button>
+    <h3>Update Order #<span id="order-dialog-id"></span></h3>
+    <div class="form-group">
+      <label>Status</label>
+      <select id="order-new-status">
+        <option>pending</option><option>confirmed</option><option>processing</option>
+        <option>shipped</option><option>delivered</option><option>cancelled</option>
+      </select>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" id="order-cancel">Cancel</button>
+      <button class="btn btn-gold" id="order-save-btn">Update Status</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MESSAGE DIALOG ── -->
+<div class="overlay" id="msg-overlay">
+  <div class="dialog">
+    <button class="dialog-close" id="msg-dialog-close">✕</button>
+    <h3 id="msg-dialog-title">Message</h3>
+    <div id="msg-dialog-body"></div>
+    <div class="dialog-footer">
+      <select id="msg-new-status" style="flex:1;max-width:160px;">
+        <option>unread</option><option>read</option><option>replied</option>
+      </select>
+      <button class="btn btn-outline" id="msg-cancel">Close</button>
+      <button class="btn btn-gold" id="msg-save-btn">Update Status</button>
+    </div>
+  </div>
+</div>
+
+<div id="admin-toast"></div>
+
+<script src="admin-script.js"></script>
+</body>
+</html>

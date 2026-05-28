@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Step-In-Style (SIS) Collection — Premium Fashion</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── LOADER ── -->
+  <div id="loader">
+    <div class="loader-text">Step-In-Style (SIS) Collection</div>
+    <div class="loader-bar"><span></span></div>
+  </div>
+
+  <!-- ── CURSOR ── -->
+  <div id="cursor"></div>
+  <div id="cursor-follower"></div>
+
+  <!-- ── NAVIGATION ── -->
+  <header id="navbar">
+    <div class="nav-left">
+      <a href="#" class="logo">Step-In-Style (SIS)</a>
+    </div>
+    <nav class="nav-center">
+      <a href="#collections" class="nav-link">Collections</a>
+      <a href="#new-arrivals" class="nav-link">New Arrivals</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-icon" aria-label="Search" id="search-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="nav-icon" aria-label="Account" id="account-btn" title="My Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <button class="nav-icon cart-btn" aria-label="Cart" id="cart-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── MOBILE MENU ── -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#collections" class="mobile-link">Collections</a>
+    <a href="#new-arrivals" class="mobile-link">New Arrivals</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+      <div class="hero-pattern"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" data-reveal>SS 2026 Collection</p>
+      <h1 class="hero-title" data-reveal>
+        <span>Wear</span>
+        <em>Your</em>
+        <span>Story</span>
+      </h1>
+      <p class="hero-sub" data-reveal>Curated pieces for the discerning individual.<br>Where heritage meets contemporary vision.</p>
+      <div class="hero-actions" data-reveal>
+        <a href="#collections" class="btn btn-primary">Explore Collection</a>
+        <a href="#new-arrivals" class="btn btn-ghost">New Arrivals</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+    <div class="hero-badge">
+      <svg viewBox="0 0 120 120">
+        <path id="circle-text" d="M 60,60 m -45,0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0"/>
+        <text><textPath href="#circle-text">PREMIUM QUALITY · EST. 2010 · HANDCRAFTED ·</textPath></text>
+      </svg>
+      <span class="badge-center">✦</span>
+    </div>
+  </section>
+
+  <!-- ── TICKER ── -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span>Free Shipping on Orders Over GH₵500</span>
+      <span>✦</span>
+      <span>New Summer Collection Now Live</span>
+      <span>✦</span>
+      <span>Exclusive Members Get 15% Off</span>
+      <span>✦</span>
+      <span>Tailored to Perfection</span>
+      <span>✦</span>
+      <span>Free Shipping on Orders Over GH₵500</span>
+      <span>✦</span>
+      <span>New Summer Collection Now Live</span>
+      <span>✦</span>
+      <span>Exclusive Members Get 15% Off</span>
+      <span>✦</span>
+      <span>Tailored to Perfection</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- ── COLLECTIONS ── -->
+  <section id="collections" class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Our Categories</p>
+        <h2 class="section-title">Shop by <em>Collection</em></h2>
+      </div>
+      <div class="collections-grid">
+
+        <div class="collection-card large" data-tilt>
+          <div class="card-img" style="background: linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)">
+            <div class="card-img-overlay"></div>
+            <div class="garment-illustration men"></div>
+          </div>
+          <div class="card-info">
+            <h3>Men's Formal</h3>
+            <p>Tailored suits &amp; evening wear</p>
+            <a href="#" class="card-link">Shop Now <span>→</span></a>
+          </div>
+        </div>
+
+        <div class="collection-card" data-tilt>
+          <div class="card-img" style="background: linear-gradient(135deg,#2d1b33 0%,#4a1942 50%,#6b2d6b 100%)">
+            <div class="card-img-overlay"></div>
+            <div class="garment-illustration women"></div>
+          </div>
+          <div class="card-info">
+            <h3>Women's Couture</h3>
+            <p>Elegant dresses &amp; separates</p>
+            <a href="#" class="card-link">Shop Now <span>→</span></a>
+          </div>
+        </div>
+
+        <div class="collection-card" data-tilt>
+          <div class="card-img" style="background: linear-gradient(135deg,#1a2f1a 0%,#2d4a2d 50%,#3d6b3d 100%)">
+            <div class="card-img-overlay"></div>
+            <div class="garment-illustration casual"></div>
+          </div>
+          <div class="card-info">
+            <h3>Casual Luxury</h3>
+            <p>Refined everyday essentials</p>
+            <a href="#" class="card-link">Shop Now <span>→</span></a>
+          </div>
+        </div>
+
+        <div class="collection-card wide" data-tilt>
+          <div class="card-img" style="background: linear-gradient(135deg,#2f2a1a 0%,#4a3d1a 50%,#6b5a1e 100%)">
+            <div class="card-img-overlay"></div>
+            <div class="garment-illustration accessories"></div>
+          </div>
+          <div class="card-info">
+            <h3>Accessories</h3>
+            <p>Bags, scarves &amp; fine jewellery</p>
+            <a href="#" class="card-link">Shop Now <span>→</span></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEW ARRIVALS ── -->
+  <section id="new-arrivals" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Just Landed</p>
+        <h2 class="section-title">New <em>Arrivals</em></h2>
+      </div>
+      <div class="products-grid" id="products-grid">
+        <!-- Populated by JS -->
+      </div>
+      <div class="load-more-wrap">
+        <button class="btn btn-outline" id="load-more">Load More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURES ── -->
+  <section class="features-section">
+    <div class="features-inner">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <h4>Free Shipping</h4>
+        <p>On all orders above GH₵500</p>
+      </div>
+      <div class="feature-divider"></div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+        </div>
+        <h4>Easy Returns</h4>
+        <p>30-day hassle-free return policy</p>
+      </div>
+      <div class="feature-divider"></div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4>Secure Payment</h4>
+        <p>Encrypted &amp; fully protected</p>
+      </div>
+      <div class="feature-divider"></div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h4>24/7 Support</h4>
+        <p>Dedicated styling consultants</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about" class="section about-section">
+    <div class="about-text-col">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">Crafted with <em>Intention</em></h2>
+      <p class="about-body">Step-In-Style (SIS) Collection was born from a singular obsession: clothing that carries meaning. Founded in Accra in 2010, we blend West African heritage with European tailoring traditions to create garments that feel as remarkable as they look.</p>
+      <p class="about-body">Every stitch is deliberate. Every silhouette is considered. We work exclusively with ethical suppliers and master artisans whose craft has been refined over generations.</p>
+      <div class="about-stats">
+        <div class="stat"><span class="stat-number" data-count="14">0</span><span>Years of Craft</span></div>
+        <div class="stat"><span class="stat-number" data-count="4200">0</span><span>Happy Clients</span></div>
+        <div class="stat"><span class="stat-number" data-count="38">0</span><span>Collections</span></div>
+      </div>
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+    </div>
+    <div class="about-visual-col">
+      <div class="about-image-frame">
+        <div class="about-image-inner">
+          <div class="about-illustration"></div>
+        </div>
+        <div class="about-frame-accent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="section testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Client Stories</p>
+        <h2 class="section-title">What They <em>Say</em></h2>
+      </div>
+      <div class="testimonials-track" id="testimonials-track">
+        <div class="testimonial-card active">
+          <div class="stars">★★★★★</div>
+          <blockquote>"The suit I ordered for my wedding was absolutely exquisite. The tailoring was perfect and the fabric felt luxurious. MAISON ÉLITE truly delivers on its promise of excellence."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#c9a84c">K</div>
+            <div><strong>Kwame Asante</strong><span>Accra, Ghana</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <blockquote>"I've shopped luxury fashion across three continents and MAISON ÉLITE stands with the very best. The attention to detail in every piece is extraordinary."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#9b4f96">A</div>
+            <div><strong>Ama Owusu</strong><span>Kumasi, Ghana</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <blockquote>"From the moment you enter the site to receiving your package, every touchpoint radiates sophistication. Their customer service is unmatched."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#2d7a4f">E</div>
+            <div><strong>Emmanuel Boateng</strong><span>Takoradi, Ghana</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-dots" id="testimonial-dots">
+        <button class="dot active" data-idx="0"></button>
+        <button class="dot" data-idx="1"></button>
+        <button class="dot" data-idx="2"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEWSLETTER ── -->
+  <section class="newsletter-section">
+    <div class="newsletter-inner">
+      <p class="section-label">Stay in the Loop</p>
+      <h2>Join the <em>Inner Circle</em></h2>
+      <p>Be the first to hear about new collections, exclusive offers, and style guides delivered to your inbox.</p>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+      <p class="newsletter-note">No spam, ever. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact" class="section contact-section">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <p class="section-label">Get in Touch</p>
+        <h2 class="section-title">Let's <em>Connect</em></h2>
+        <div class="contact-details">
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div><strong>Visit Us</strong><span>14 High Street, Osu, Accra, Ghana</span></div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .5h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.31a16 16 0 006.29 6.29l1.17-1.16a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.92z"/></svg>
+            <div><strong>Call Us</strong><span>+233 24 000 1234</span></div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div><strong>Email Us</strong><span>hello@stepinstyle.com</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <form class="contact-form" id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Ama" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Owusu" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="ama@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="Tell us how we can help you…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary full-width">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">Step-In-Style (SIS)</div>
+        <p>Curated fashion for the discerning individual. Where heritage meets contemporary vision.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter/X">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links-grid">
+        <div>
+          <h5>Shop</h5>
+          <a href="#">Men's Collection</a>
+          <a href="#">Women's Collection</a>
+          <a href="#">Accessories</a>
+          <a href="#">New Arrivals</a>
+          <a href="#">Sale</a>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <a href="#">About Us</a>
+          <a href="#">Sustainability</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+          <a href="#">Partners</a>
+        </div>
+        <div>
+          <h5>Support</h5>
+          <a href="#">Shipping Info</a>
+          <a href="#">Returns</a>
+          <a href="#">Size Guide</a>
+          <a href="#">FAQs</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Step-In-Style (SIS) Collection. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── CART SIDEBAR ── -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Bag</h3>
+      <button id="cart-close" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <p>Your bag is empty</p>
+        <a href="#collections" class="btn btn-primary" id="cart-shop-link">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-subtotal-row">
+        <span>Subtotal</span><span id="cart-subtotal-price">GH₵0.00</span>
+      </div>
+      <div class="cart-shipping-row" id="cart-shipping-row">
+        <span>Shipping</span><span id="cart-shipping-price">GH₵35.00</span>
+      </div>
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total-price">GH₵0.00</span>
+      </div>
+      <button class="btn btn-primary full-width" id="checkout-btn">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ── AUTH MODAL ── -->
+  <div class="modal-overlay" id="auth-overlay"></div>
+  <div class="modal" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <button class="modal-close" id="auth-modal-close" aria-label="Close">✕</button>
+
+    <!-- LOGIN PANEL -->
+    <div class="auth-panel" id="auth-login-panel">
+      <div class="modal-brand">MAISON ÉLITE</div>
+      <h2 id="auth-modal-title">Welcome Back</h2>
+      <p class="modal-sub">Sign in to your account</p>
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="you@example.com" required autocomplete="email"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password"/>
+        </div>
+        <div class="form-error" id="login-error"></div>
+        <button type="submit" class="btn btn-primary full-width" id="login-submit-btn">Sign In</button>
+      </form>
+      <p class="auth-switch">Don't have an account? <button class="link-btn" id="show-register">Create one</button></p>
+    </div>
+
+    <!-- REGISTER PANEL -->
+    <div class="auth-panel hidden" id="auth-register-panel">
+      <div class="modal-brand">MAISON ÉLITE</div>
+      <h2>Create Account</h2>
+      <p class="modal-sub">Join the Inner Circle</p>
+      <form id="register-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="reg-first" placeholder="Ama" required/>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="reg-last" placeholder="Owusu" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="reg-email" placeholder="ama@example.com" required autocomplete="email"/>
+        </div>
+        <div class="form-group">
+          <label>Password <span class="hint">(min 8 characters)</span></label>
+          <input type="password" id="reg-password" placeholder="••••••••" required autocomplete="new-password"/>
+        </div>
+        <div class="form-error" id="register-error"></div>
+        <button type="submit" class="btn btn-primary full-width" id="register-submit-btn">Create Account</button>
+      </form>
+      <p class="auth-switch">Already have an account? <button class="link-btn" id="show-login">Sign in</button></p>
+    </div>
+
+    <!-- ACCOUNT PANEL (logged in) -->
+    <div class="auth-panel hidden" id="auth-account-panel">
+      <div class="modal-brand">MAISON ÉLITE</div>
+      <h2>My Account</h2>
+      <div class="account-info">
+        <div class="account-avatar" id="account-avatar">A</div>
+        <div>
+          <p class="account-name" id="account-name">—</p>
+          <p class="account-email-display" id="account-email-display">—</p>
+        </div>
+      </div>
+      <div class="account-actions">
+        <button class="btn btn-outline full-width" id="view-orders-btn">My Orders</button>
+        <button class="btn btn-ghost full-width" id="logout-btn">Sign Out</button>
+      </div>
+      <!-- Orders list -->
+      <div class="orders-panel hidden" id="orders-panel">
+        <button class="back-btn" id="back-to-account">← Back</button>
+        <h3>My Orders</h3>
+        <div id="orders-list"><p class="loading-text">Loading…</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHECKOUT MODAL ── -->
+  <div class="modal-overlay" id="checkout-overlay"></div>
+  <div class="modal modal-wide" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+    <button class="modal-close" id="checkout-modal-close" aria-label="Close">✕</button>
+
+    <!-- STEP 1: SHIPPING -->
+    <div class="checkout-step" id="checkout-step-1">
+      <div class="modal-brand">MAISON ÉLITE</div>
+      <h2 id="checkout-title">Checkout</h2>
+      <p class="modal-sub">Enter your shipping details</p>
+      <form id="checkout-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="co-first" placeholder="Ama" required/>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="co-last" placeholder="Owusu" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="co-email" placeholder="ama@example.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="co-phone" placeholder="+233 24 000 0000"/>
+        </div>
+        <div class="form-group">
+          <label>Delivery Address</label>
+          <input type="text" id="co-address" placeholder="14 High Street, Osu" required/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" id="co-city" placeholder="Accra" required/>
+          </div>
+          <div class="form-group">
+            <label>Region</label>
+            <input type="text" id="co-region" placeholder="Greater Accra"/>
+          </div>
+        </div>
+
+        <h4 class="payment-heading">Payment Method</h4>
+        <div class="payment-options">
+          <label class="payment-option">
+            <input type="radio" name="payment" value="card" checked/>
+            <span>💳 Credit / Debit Card</span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="mobile_money"/>
+            <span>📱 Mobile Money</span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="cash_on_delivery"/>
+            <span>💵 Cash on Delivery</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Order Notes <span class="hint">(optional)</span></label>
+          <textarea id="co-notes" rows="2" placeholder="Any special instructions?"></textarea>
+        </div>
+
+        <div class="checkout-summary" id="checkout-summary"></div>
+
+        <div class="form-error" id="checkout-error"></div>
+        <button type="submit" class="btn btn-primary full-width" id="place-order-btn">Place Order</button>
+      </form>
+    </div>
+
+    <!-- STEP 2: CONFIRMATION -->
+    <div class="checkout-step hidden" id="checkout-step-2">
+      <div class="order-success-icon">✦</div>
+      <h2>Order Confirmed!</h2>
+      <p class="modal-sub" id="order-confirm-msg">Your order has been placed.</p>
+      <div class="order-confirm-details" id="order-confirm-details"></div>
+      <button class="btn btn-primary full-width" id="order-done-btn">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- ── TOAST ── -->
+  <div id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
